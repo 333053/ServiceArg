@@ -1,1 +1,564 @@
 
+ChatGPT dijo:
+¡Perfecto! Vamos a hacer una primera versión profesional y funcional visualmente. Por ahora no conectamos Supabase; primero dejamos la página bonita y después le agregamos los datos reales.
+
+En GitHub, abrí Editar índice.html, borrá lo que haya y pegá todo este código:
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Argumento de Servicio | Encontrá profesionales</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8fafc;
+      color: #172033;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      color: #2563eb;
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #2563eb;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 13px 20px;
+      border-radius: 9px;
+      text-decoration: none;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #2563eb;
+      border: 1px solid #2563eb;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eff6ff, #ffffff);
+      padding: 90px 24px;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hero h1 {
+      max-width: 850px;
+      margin: auto;
+      font-size: clamp(40px, 6vw, 68px);
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span {
+      color: #2563eb;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 35px;
+      color: #64748b;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .search {
+      max-width: 800px;
+      margin: 50px auto 0;
+      background: white;
+      padding: 10px;
+      border-radius: 14px;
+      box-shadow: 0 15px 40px rgba(15, 23, 42, 0.10);
+      display: flex;
+      gap: 10px;
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 15px;
+      font-size: 16px;
+    }
+
+    section {
+      padding: 80px 24px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .section-title p {
+      color: #64748b;
+      font-size: 17px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .category {
+      background: white;
+      border: 1px solid #e5e7eb;
+      padding: 30px 20px;
+      border-radius: 14px;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .category:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    .category-icon {
+      font-size: 38px;
+      margin-bottom: 15px;
+    }
+
+    .category h3 {
+      margin-bottom: 8px;
+    }
+
+    .category p {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .services {
+      background: #f1f5f9;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      border: 1px solid #e5e7eb;
+      transition: 0.2s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.10);
+    }
+
+    .service-image {
+      height: 170px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 48px;
+    }
+
+    .service-content {
+      padding: 22px;
+    }
+
+    .service-content h3 {
+      margin-bottom: 10px;
+    }
+
+    .service-content p {
+      color: #64748b;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+
+    .price {
+      color: #2563eb;
+      font-size: 21px;
+      font-weight: 800;
+    }
+
+    .how {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+
+    .step {
+      text-align: center;
+    }
+
+    .step-number {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: #dbeafe;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .step p {
+      color: #64748b;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .cta {
+      background: #172554;
+      color: white;
+      text-align: center;
+    }
+
+    .cta h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+    }
+
+    .cta p {
+      color: #cbd5e1;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 35px 24px;
+      text-align: center;
+    }
+
+    footer strong {
+      color: white;
+    }
+
+    @media (max-width: 900px) {
+      .categories {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .service-grid,
+      .how {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        display: none;
+      }
+
+      .hero {
+        padding: 65px 20px;
+      }
+
+      .search {
+        flex-direction: column;
+      }
+
+      .categories {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 60px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="navbar">
+      <div class="logo">Argumento de Servicio</div>
+
+      <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <a href="#contacto" class="btn btn-primary">Ofrecer mi servicio</a>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+
+        <h1>
+          Encontrá a la persona indicada para tu
+          <span>próximo proyecto</span>
+        </h1>
+
+        <p>
+          Conectamos personas que necesitan ayuda con profesionales
+          que ofrecen sus servicios.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#servicios" class="btn btn-primary">
+            Explorar servicios
+          </a>
+
+          <a href="#contacto" class="btn btn-secondary">
+            Ofrecer mis servicios
+          </a>
+        </div>
+
+        <div class="search">
+          <input
+            type="text"
+            placeholder="¿Qué servicio estás buscando?"
+          >
+
+          <button class="btn btn-primary">
+            Buscar
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="categorias">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Explorá por categoría</h2>
+          <p>Encontrá profesionales para diferentes tipos de trabajos.</p>
+        </div>
+
+        <div class="categories">
+
+          <div class="category">
+            <div class="category-icon">💻</div>
+            <h3>Tecnología</h3>
+            <p>Programación, páginas web y soluciones digitales.</p>
+          </div>
+
+          <div class="category">
+            <div class="category-icon">🎨</div>
+            <h3>Diseño</h3>
+            <p>Diseño gráfico, logos, identidad visual y más.</p>
+          </div>
+
+          <div class="category">
+            <div class="category-icon">📱</div>
+            <h3>Marketing</h3>
+            <p>Redes sociales, publicidad y creación de contenido.</p>
+          </div>
+
+          <div class="category">
+            <div class="category-icon">🔧</div>
+            <h3>Servicios generales</h3>
+            <p>Profesionales para diferentes necesidades.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="servicios" class="services">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Servicios destacados</h2>
+          <p>Algunos de los servicios que podés encontrar.</p>
+        </div>
+
+        <div class="service-grid">
+
+          <div class="service-card">
+            <div class="service-image">💻</div>
+            <div class="service-content">
+              <h3>Creación de páginas web</h3>
+              <p>
+                Diseño y desarrollo de páginas web profesionales
+                para negocios y emprendimientos.
+              </p>
+              <div class="price">Desde $50</div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-image">🎨</div>
+            <div class="service-content">
+              <h3>Diseño de logos</h3>
+              <p>
+                Creación de una identidad visual profesional
+                para tu negocio.
+              </p>
+              <div class="price">Desde $30</div>
+            </div>
+          </div>
+
+          <div class="service-card">
+            <div class="service-image">📱</div>
+            <div class="service-content">
+              <h3>Manejo de redes sociales</h3>
+              <p>
+                Gestión y creación de contenido para tus
+                redes sociales.
+              </p>
+              <div class="price">Desde $40</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="como-funciona">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>¿Cómo funciona?</h2>
+          <p>Contratar un servicio es simple.</p>
+        </div>
+
+        <div class="how">
+
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3>Buscá</h3>
+            <p>
+              Encontrá el servicio que necesitás entre
+              diferentes profesionales.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3>Elegí</h3>
+            <p>
+              Compará servicios y elegí la opción que
+              mejor se adapte a vos.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3>Contactá</h3>
+            <p>
+              Contactá al profesional y comenzá a trabajar
+              en tu proyecto.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="cta">
+      <div class="container">
+
+        <h2>¿Tenés un servicio para ofrecer?</h2>
+
+        <p>
+          Mostrá lo que sabés hacer y encontrá nuevos clientes.
+        </p>
+
+        <a href="mailto:contacto@tuservicio.com" class="btn btn-primary">
+          Quiero ofrecer mi servicio
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>
+      © 2026 <strong>Argumento de Servicio</strong>.
+      Todos los derechos reservados.
+    </p>
+  </footer>
+
+</body>
+</html>
