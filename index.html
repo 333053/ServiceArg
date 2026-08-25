@@ -1,261 +1,348 @@
-file:///C:/Users/emers/Downloads/index_argumento_servicio_v3_diseno.html
-ChatGPT dijo:
-¡Perfecto! Vamos a hacer una primera versión profesional y funcional visualmente. Por ahora no conectamos Supabase; primero dejamos la página bonita y después le agregamos los datos reales.
-
-En GitHub, abrí Editar índice.html, borrá lo que haya y pegá todo este código:
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="description" content="Argumento de Servicio: encontrá profesionales y servicios para tu próximo proyecto.">
   <title>Argumento de Servicio | Encontrá profesionales</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-soft: #eff6ff;
+      --dark: #0f172a;
+      --text: #172033;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --surface: #ffffff;
+      --bg: #f8fafc;
+      --success: #16a34a;
+      --shadow: 0 15px 40px rgba(15, 23, 42, .09);
     }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f8fafc;
-      color: #172033;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
     }
 
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+
     header {
-      background: white;
-      border-bottom: 1px solid #e5e7eb;
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 100;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
 
     .navbar {
       max-width: 1200px;
       margin: auto;
-      padding: 18px 24px;
+      min-height: 72px;
+      padding: 14px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
     }
 
     .logo {
-      font-size: 22px;
-      font-weight: 800;
-      color: #2563eb;
-    }
-
-    nav {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-
-    nav a {
+      color: var(--primary);
+      font-size: 21px;
+      font-weight: 850;
       text-decoration: none;
-      color: #475569;
-      font-weight: 600;
+      white-space: nowrap;
     }
 
-    nav a:hover {
-      color: #2563eb;
+    nav { display: flex; gap: 24px; align-items: center; }
+    nav a {
+      color: #475569;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
     }
+    nav a:hover { color: var(--primary); }
 
     .btn {
-      display: inline-block;
-      padding: 13px 20px;
-      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 12px 19px;
+      border-radius: 10px;
+      border: 1px solid transparent;
       text-decoration: none;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
+      font-weight: 750;
+      transition: .2s ease;
     }
 
     .btn-primary {
-      background: #2563eb;
+      background: var(--primary);
       color: white;
+      box-shadow: 0 8px 20px rgba(37,99,235,.18);
     }
-
     .btn-primary:hover {
-      background: #1d4ed8;
+      background: var(--primary-dark);
+      transform: translateY(-1px);
     }
 
     .btn-secondary {
       background: white;
-      color: #2563eb;
-      border: 1px solid #2563eb;
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+    .btn-secondary:hover { background: var(--primary-soft); }
+
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 9px;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
     }
 
     .hero {
-      background: linear-gradient(135deg, #eff6ff, #ffffff);
-      padding: 90px 24px;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(96,165,250,.18), transparent 30%),
+        radial-gradient(circle at 90% 10%, rgba(124,58,237,.13), transparent 28%),
+        linear-gradient(135deg, #eff6ff, #fff 62%, #f8fafc);
+      padding: 88px 24px 76px;
     }
 
     .hero-content {
-      max-width: 1200px;
+      max-width: 1050px;
       margin: auto;
       text-align: center;
     }
 
-    .hero h1 {
-      max-width: 850px;
-      margin: auto;
-      font-size: clamp(40px, 6vw, 68px);
-      line-height: 1.05;
-      margin-bottom: 24px;
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      border: 1px solid #bfdbfe;
+      border-radius: 999px;
+      background: rgba(255,255,255,.8);
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 20px;
     }
 
-    .hero h1 span {
-      color: #2563eb;
+    .hero h1 {
+      max-width: 900px;
+      margin: auto;
+      font-size: clamp(42px, 6vw, 70px);
+      line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 22px;
     }
+
+    .hero h1 span { color: var(--primary); }
 
     .hero p {
-      max-width: 650px;
-      margin: 0 auto 35px;
-      color: #64748b;
-      font-size: 20px;
-      line-height: 1.6;
+      max-width: 690px;
+      margin: 0 auto 30px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.65;
     }
 
     .hero-buttons {
       display: flex;
       justify-content: center;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .search {
-      max-width: 800px;
-      margin: 50px auto 0;
+      max-width: 850px;
+      margin: 38px auto 0;
       background: white;
-      padding: 10px;
+      padding: 8px;
+      border: 1px solid var(--border);
       border-radius: 14px;
-      box-shadow: 0 15px 40px rgba(15, 23, 42, 0.10);
+      box-shadow: var(--shadow);
       display: flex;
-      gap: 10px;
+      gap: 8px;
     }
 
     .search input {
       flex: 1;
-      border: none;
-      outline: none;
-      padding: 15px;
-      font-size: 16px;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      padding: 14px 15px;
+      color: var(--text);
     }
 
-    section {
-      padding: 80px 24px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: auto;
-    }
+    section { padding: 76px 24px; }
+    .container { max-width: 1200px; margin: auto; }
 
     .section-title {
       text-align: center;
-      margin-bottom: 45px;
+      margin-bottom: 38px;
     }
 
     .section-title h2 {
-      font-size: 36px;
-      margin-bottom: 12px;
+      font-size: clamp(30px, 4vw, 40px);
+      letter-spacing: -.7px;
+      margin-bottom: 9px;
     }
 
-    .section-title p {
-      color: #64748b;
-      font-size: 17px;
-    }
+    .section-title p { color: var(--muted); font-size: 16px; }
 
     .categories {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 18px;
     }
 
     .category {
-      background: white;
-      border: 1px solid #e5e7eb;
-      padding: 30px 20px;
-      border-radius: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 25px 20px;
+      border-radius: 15px;
       text-align: center;
-      transition: 0.2s;
+      transition: .2s ease;
     }
 
-    .category:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    .category:hover,
+    .category.active {
+      border-color: #93c5fd;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
     }
 
-    .category-icon {
-      font-size: 38px;
-      margin-bottom: 15px;
+    .category-icon { font-size: 36px; margin-bottom: 12px; }
+    .category h3 { margin-bottom: 7px; }
+    .category p { color: var(--muted); font-size: 14px; }
+
+    .services { background: #f1f5f9; }
+
+    .service-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
+      flex-wrap: wrap;
     }
 
-    .category h3 {
-      margin-bottom: 8px;
-    }
-
-    .category p {
-      color: #64748b;
+    .result-count {
+      color: var(--muted);
       font-size: 14px;
+      font-weight: 650;
     }
 
-    .services {
-      background: #f1f5f9;
+    .clear-filter {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--primary);
+      font-weight: 750;
     }
+
+    .clear-filter.show { display: inline-block; }
 
     .service-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
+      gap: 22px;
     }
 
     .service-card {
       background: white;
       border-radius: 15px;
       overflow: hidden;
-      border: 1px solid #e5e7eb;
-      transition: 0.2s;
+      border: 1px solid var(--border);
+      transition: .2s ease;
     }
 
     .service-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.10);
+      box-shadow: var(--shadow);
     }
 
+    .service-card.hidden { display: none; }
+
     .service-image {
-      height: 170px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      height: 165px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
       font-size: 48px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
     }
 
-    .service-content {
-      padding: 22px;
-    }
-
-    .service-content h3 {
+    .service-content { padding: 21px; }
+    .service-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
       margin-bottom: 10px;
     }
 
-    .service-content p {
-      color: #64748b;
-      line-height: 1.5;
-      margin-bottom: 18px;
-    }
-
-    .price {
-      color: #2563eb;
-      font-size: 21px;
+    .tag {
+      display: inline-flex;
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: var(--primary);
+      font-size: 11px;
       font-weight: 800;
     }
+
+    .rating { color: #b45309; font-size: 13px; font-weight: 750; }
+
+    .service-content h3 { margin-bottom: 8px; font-size: 20px; }
+    .service-content p {
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 18px;
+      font-size: 14px;
+    }
+
+    .service-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .price { color: var(--primary); font-size: 19px; font-weight: 850; }
+
+    .details-btn {
+      border: 0;
+      background: var(--dark);
+      color: white;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .details-btn:hover { background: #1e293b; }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      padding: 35px 20px;
+      color: var(--muted);
+    }
+    .empty-state.show { display: block; }
 
     .how {
       display: grid;
@@ -263,100 +350,487 @@ En GitHub, abrí Editar índice.html, borrá lo que haya y pegá todo este códi
       gap: 30px;
     }
 
-    .step {
-      text-align: center;
-    }
-
+    .step { text-align: center; padding: 10px; }
     .step-number {
-      width: 55px;
-      height: 55px;
-      margin: 0 auto 18px;
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 17px;
       border-radius: 50%;
       background: #dbeafe;
-      color: #2563eb;
+      color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      font-weight: 800;
+      font-size: 21px;
+      font-weight: 850;
     }
 
     .step p {
-      color: #64748b;
-      margin-top: 10px;
-      line-height: 1.5;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.55;
+      font-size: 14px;
     }
 
     .cta {
-      background: #172554;
+      background: linear-gradient(135deg, #172554, #1e3a8a);
       color: white;
       text-align: center;
     }
 
-    .cta h2 {
-      font-size: 40px;
-      margin-bottom: 15px;
+    .cta h2 { font-size: clamp(30px, 4vw, 42px); margin-bottom: 12px; }
+    .cta p { color: #cbd5e1; margin-bottom: 27px; font-size: 17px; }
+
+    .contact-box {
+      max-width: 620px;
+      margin: 30px auto 0;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: left;
     }
 
-    .cta p {
-      color: #cbd5e1;
-      margin-bottom: 30px;
-      font-size: 18px;
+    .contact-box label {
+      display: block;
+      font-size: 13px;
+      font-weight: 750;
+      margin-bottom: 7px;
     }
+
+    .contact-box input,
+    .contact-box textarea {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.95);
+      color: var(--text);
+      border-radius: 9px;
+      padding: 12px;
+      margin-bottom: 14px;
+      outline: 0;
+    }
+
+    .contact-box textarea { min-height: 105px; resize: vertical; }
+
+    .success-message {
+      display: none;
+      margin-top: 12px;
+      padding: 10px;
+      border-radius: 8px;
+      background: rgba(22,163,74,.18);
+      color: #dcfce7;
+      font-size: 13px;
+    }
+
+    .success-message.show { display: block; }
 
     footer {
       background: #0f172a;
       color: #94a3b8;
-      padding: 35px 24px;
+      padding: 30px 24px;
       text-align: center;
+      font-size: 14px;
     }
 
-    footer strong {
+    footer strong { color: white; }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(15,23,42,.62);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show { display: flex; }
+
+    .modal {
+      width: min(520px, 100%);
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      position: relative;
+      box-shadow: 0 25px 70px rgba(0,0,0,.22);
+    }
+
+    .modal-close {
+      position: absolute;
+      right: 16px;
+      top: 14px;
+      border: 0;
+      background: #f1f5f9;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      font-size: 18px;
+    }
+
+    .modal h3 { margin-bottom: 8px; padding-right: 35px; }
+    .modal p { color: var(--muted); margin-bottom: 18px; }
+    .modal .modal-price { color: var(--primary); font-size: 22px; font-weight: 850; }
+
+    @media (max-width: 900px) {
+      .categories { grid-template-columns: repeat(2, 1fr); }
+      .service-grid, .how { grid-template-columns: 1fr 1fr; }
+      nav { display: none; }
+      .menu-btn { display: block; }
+      .navbar .btn-primary { display: none; }
+    }
+
+    @media (max-width: 620px) {
+      .navbar { padding: 12px 18px; }
+      .logo { font-size: 18px; }
+      .hero { padding: 65px 20px 55px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .hero p { font-size: 17px; }
+      .search { flex-direction: column; }
+      .search .btn { width: 100%; }
+      section { padding: 58px 20px; }
+      .categories, .service-grid, .how { grid-template-columns: 1fr; }
+      .service-toolbar { align-items: flex-start; }
+      .contact-box { padding: 18px; }
+    }
+
+    /* ===== DISEÑO V3 ===== */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+
+    .hero::before {
+      width: 360px;
+      height: 360px;
+      right: -100px;
+      bottom: -150px;
+      background: rgba(59,130,246,.12);
+    }
+
+    .hero::after {
+      width: 250px;
+      height: 250px;
+      left: -100px;
+      top: 80px;
+      background: rgba(139,92,246,.10);
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .trust-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .trust-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(148,163,184,.25);
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .trust-chip span { color: var(--success); }
+
+    .stats {
+      max-width: 820px;
+      margin: 42px auto 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(226,232,240,.9);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(15,23,42,.06);
+    }
+
+    .stat {
+      padding: 18px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat:last-child { border-right: 0; }
+    .stat strong {
+      display: block;
+      font-size: 24px;
+      letter-spacing: -.5px;
+    }
+    .stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .category {
+      appearance: none;
+      width: 100%;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .category-icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 13px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-soft);
+    }
+
+    .service-image {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,.12), transparent 60%);
+    }
+
+    .service-owner {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 15px;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #dbeafe;
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .verified {
+      color: var(--success);
+      font-size: 11px;
+      margin-left: auto;
+    }
+
+    .featured {
+      padding-top: 12px;
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .pro-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      transition: .2s ease;
+    }
+
+    .pro-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: #bfdbfe;
+    }
+
+    .pro-top {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 15px;
+    }
+
+    .pro-avatar {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #dbeafe, #ede9fe);
+      color: #3730a3;
+      font-size: 16px;
+      font-weight: 900;
+    }
+
+    .pro-name {
+      font-weight: 850;
+      margin-bottom: 2px;
+    }
+
+    .pro-role {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pro-description {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .pro-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .pro-rating {
+      color: #a16207;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .pro-link {
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .process-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px 25px;
+    }
+
+    .process-card .step-number {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto 25px;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 40px;
+      text-align: left;
+    }
+
+    .footer-brand {
       color: white;
+      font-size: 18px;
+      font-weight: 850;
+      margin-bottom: 8px;
+    }
+
+    .footer-copy {
+      max-width: 390px;
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .footer-column h4 {
+      color: white;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .footer-column a:hover { color: white; }
+
+    .footer-bottom {
+      padding-top: 20px;
+      border-top: 1px solid rgba(148,163,184,.14);
+      font-size: 12px;
+    }
+
+    .mobile-menu-open nav {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 72px;
+      left: 0;
+      right: 0;
+      padding: 18px 24px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 15px 25px rgba(15,23,42,.08);
     }
 
     @media (max-width: 900px) {
-      .categories {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .service-grid,
-      .how {
-        grid-template-columns: 1fr;
-      }
+      .stats { max-width: 650px; }
+      .featured-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
     }
 
-    @media (max-width: 600px) {
-      nav {
-        display: none;
+    @media (max-width: 620px) {
+      .hero { min-height: auto; }
+      .stats { grid-template-columns: 1fr; }
+      .stat {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
       }
-
-      .hero {
-        padding: 65px 20px;
-      }
-
-      .search {
-        flex-direction: column;
-      }
-
-      .categories {
-        grid-template-columns: 1fr;
-      }
-
-      section {
-        padding: 60px 20px;
-      }
+      .stat:last-child { border-bottom: 0; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 25px; }
     }
+
   </style>
 </head>
 
 <body>
-
   <header>
     <div class="navbar">
-      <div class="logo">Argumento de Servicio</div>
+      <a class="logo" href="#">Argumento de Servicio</a>
 
-      <nav>
+      <nav id="mainNav">
         <a href="#servicios">Servicios</a>
         <a href="#categorias">Categorías</a>
         <a href="#como-funciona">Cómo funciona</a>
@@ -364,13 +838,14 @@ En GitHub, abrí Editar índice.html, borrá lo que haya y pegá todo este códi
       </nav>
 
       <a href="#contacto" class="btn btn-primary">Ofrecer mi servicio</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button>
     </div>
   </header>
 
   <main>
-
     <section class="hero">
       <div class="hero-content">
+        <div class="eyebrow">Una forma simple de encontrar ayuda</div>
 
         <h1>
           Encontrá a la persona indicada para tu
@@ -383,182 +858,428 @@ En GitHub, abrí Editar índice.html, borrá lo que haya y pegá todo este códi
         </p>
 
         <div class="hero-buttons">
-          <a href="#servicios" class="btn btn-primary">
-            Explorar servicios
-          </a>
-
-          <a href="#contacto" class="btn btn-secondary">
-            Ofrecer mis servicios
-          </a>
+          <a href="#servicios" class="btn btn-primary">Explorar servicios</a>
+          <a href="#contacto" class="btn btn-secondary">Ofrecer mis servicios</a>
         </div>
 
         <div class="search">
-          <input
-            type="text"
+          <input id="searchInput" type="search"
             placeholder="¿Qué servicio estás buscando?"
-          >
-
-          <button class="btn btn-primary">
-            Buscar
-          </button>
+            aria-label="Buscar servicios">
+          <button class="btn btn-primary" id="searchBtn">Buscar</button>
+        </div>
+        <div class="trust-row">
+          <div class="trust-chip"><span>✓</span> Profesionales verificados</div>
+          <div class="trust-chip"><span>✓</span> Servicios claros</div>
+          <div class="trust-chip"><span>✓</span> Contacto directo</div>
         </div>
 
+        <div class="stats">
+          <div class="stat">
+            <strong>+100</strong>
+            <span>servicios para descubrir</span>
+          </div>
+          <div class="stat">
+            <strong>+50</strong>
+            <span>profesionales</span>
+          </div>
+          <div class="stat">
+            <strong>4.8/5</strong>
+            <span>valoración promedio</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <section id="categorias">
       <div class="container">
-
         <div class="section-title">
+          <span class="section-kicker">Descubrí</span>
           <h2>Explorá por categoría</h2>
-          <p>Encontrá profesionales para diferentes tipos de trabajos.</p>
+          <p>Elegí un área para encontrar servicios relacionados.</p>
         </div>
 
         <div class="categories">
-
-          <div class="category">
+          <button class="category" data-category="Tecnología">
             <div class="category-icon">💻</div>
             <h3>Tecnología</h3>
             <p>Programación, páginas web y soluciones digitales.</p>
-          </div>
+          </button>
 
-          <div class="category">
+          <button class="category" data-category="Diseño">
             <div class="category-icon">🎨</div>
             <h3>Diseño</h3>
-            <p>Diseño gráfico, logos, identidad visual y más.</p>
-          </div>
+            <p>Diseño gráfico, logos e identidad visual.</p>
+          </button>
 
-          <div class="category">
+          <button class="category" data-category="Marketing">
             <div class="category-icon">📱</div>
             <h3>Marketing</h3>
-            <p>Redes sociales, publicidad y creación de contenido.</p>
-          </div>
+            <p>Redes sociales, publicidad y contenido.</p>
+          </button>
 
-          <div class="category">
+          <button class="category" data-category="Servicios generales">
             <div class="category-icon">🔧</div>
             <h3>Servicios generales</h3>
-            <p>Profesionales para diferentes necesidades.</p>
-          </div>
-
+            <p>Profesionales para distintas necesidades.</p>
+          </button>
         </div>
       </div>
     </section>
 
     <section id="servicios" class="services">
       <div class="container">
-
         <div class="section-title">
+          <span class="section-kicker">Para empezar</span>
           <h2>Servicios destacados</h2>
-          <p>Algunos de los servicios que podés encontrar.</p>
+          <p>Una primera selección de servicios disponibles en la plataforma.</p>
         </div>
 
-        <div class="service-grid">
+        <div class="service-toolbar">
+          <span class="result-count" id="resultCount">3 servicios encontrados</span>
+          <button class="clear-filter" id="clearFilter">Limpiar filtros</button>
+        </div>
 
-          <div class="service-card">
+        <div class="service-grid" id="serviceGrid">
+          <article class="service-card" data-category="Tecnología"
+            data-search="creacion paginas web programación tecnologia desarrollo sitio negocio emprendimiento">
             <div class="service-image">💻</div>
             <div class="service-content">
+              <div class="service-meta">
+                <span class="tag">Tecnología</span>
+                <span class="rating">★ 4.9</span>
+              </div>
               <h3>Creación de páginas web</h3>
-              <p>
-                Diseño y desarrollo de páginas web profesionales
-                para negocios y emprendimientos.
-              </p>
-              <div class="price">Desde $50</div>
+              <p>Diseño y desarrollo de páginas web profesionales para negocios y emprendimientos.</p>
+              <div class="service-bottom">
+                <span class="price">Desde $50</span>
+                <button class="details-btn"
+                  data-title="Creación de páginas web"
+                  data-description="Diseño y desarrollo de páginas web profesionales, adaptables a celular y computadora."
+                  data-price="Desde $50">Ver servicio</button>
+              </div>
             </div>
-          </div>
+          </article>
 
-          <div class="service-card">
+          <article class="service-card" data-category="Diseño"
+            data-search="diseño logos logo identidad visual marca diseño grafico">
             <div class="service-image">🎨</div>
             <div class="service-content">
+              <div class="service-meta">
+                <span class="tag">Diseño</span>
+                <span class="rating">★ 4.8</span>
+              </div>
               <h3>Diseño de logos</h3>
-              <p>
-                Creación de una identidad visual profesional
-                para tu negocio.
-              </p>
-              <div class="price">Desde $30</div>
+              <p>Creación de una identidad visual profesional para tu negocio o proyecto.</p>
+              <div class="service-bottom">
+                <span class="price">Desde $30</span>
+                <button class="details-btn"
+                  data-title="Diseño de logos"
+                  data-description="Creación de propuestas visuales para construir una identidad clara y profesional."
+                  data-price="Desde $30">Ver servicio</button>
+              </div>
             </div>
-          </div>
+          </article>
 
-          <div class="service-card">
+          <article class="service-card" data-category="Marketing"
+            data-search="manejo redes sociales marketing contenido publicidad instagram facebook">
             <div class="service-image">📱</div>
             <div class="service-content">
+              <div class="service-meta">
+                <span class="tag">Marketing</span>
+                <span class="rating">★ 4.7</span>
+              </div>
               <h3>Manejo de redes sociales</h3>
-              <p>
-                Gestión y creación de contenido para tus
-                redes sociales.
-              </p>
-              <div class="price">Desde $40</div>
+              <p>Gestión y creación de contenido para tus redes sociales y canales digitales.</p>
+              <div class="service-bottom">
+                <span class="price">Desde $40</span>
+                <button class="details-btn"
+                  data-title="Manejo de redes sociales"
+                  data-description="Planificación, creación y gestión de contenido para redes sociales."
+                  data-price="Desde $40">Ver servicio</button>
+              </div>
             </div>
-          </div>
+          </article>
+        </div>
 
+        <div class="empty-state" id="emptyState">
+          <strong>No encontramos servicios con esa búsqueda.</strong>
+          <p>Probá con otra palabra o limpiá los filtros.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="featured" id="profesionales">
+      <div class="container">
+        <div class="section-title">
+          <span class="section-kicker">Conocé a quienes ofrecen</span>
+          <h2>Profesionales destacados</h2>
+          <p>Una muestra del tipo de perfiles que podrá encontrar tu comunidad.</p>
+        </div>
+
+        <div class="featured-grid">
+          <article class="pro-card">
+            <div class="pro-top">
+              <div class="pro-avatar">ML</div>
+              <div>
+                <div class="pro-name">María López</div>
+                <div class="pro-role">Diseño gráfico</div>
+              </div>
+            </div>
+            <p class="pro-description">Identidad visual, piezas para redes y diseño de marca para emprendimientos.</p>
+            <div class="pro-footer">
+              <span class="pro-rating">★ 4.9 · 28 trabajos</span>
+              <a class="pro-link" href="#contacto">Ver perfil →</a>
+            </div>
+          </article>
+
+          <article class="pro-card">
+            <div class="pro-top">
+              <div class="pro-avatar">GS</div>
+              <div>
+                <div class="pro-name">Gabriel Silva</div>
+                <div class="pro-role">Desarrollo web</div>
+              </div>
+            </div>
+            <p class="pro-description">Páginas web modernas, landing pages y soluciones digitales para negocios.</p>
+            <div class="pro-footer">
+              <span class="pro-rating">★ 4.9 · 35 trabajos</span>
+              <a class="pro-link" href="#contacto">Ver perfil →</a>
+            </div>
+          </article>
+
+          <article class="pro-card">
+            <div class="pro-top">
+              <div class="pro-avatar">CR</div>
+              <div>
+                <div class="pro-name">Carla Ruiz</div>
+                <div class="pro-role">Marketing digital</div>
+              </div>
+            </div>
+            <p class="pro-description">Contenido, redes sociales y estrategias para hacer crecer marcas.</p>
+            <div class="pro-footer">
+              <span class="pro-rating">★ 4.8 · 21 trabajos</span>
+              <a class="pro-link" href="#contacto">Ver perfil →</a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
     <section id="como-funciona">
       <div class="container">
-
         <div class="section-title">
           <h2>¿Cómo funciona?</h2>
           <p>Contratar un servicio es simple.</p>
         </div>
 
         <div class="how">
-
-          <div class="step">
+          <div class="step process-card">
             <div class="step-number">1</div>
             <h3>Buscá</h3>
-            <p>
-              Encontrá el servicio que necesitás entre
-              diferentes profesionales.
-            </p>
+            <p>Encontrá el servicio que necesitás entre diferentes profesionales.</p>
           </div>
 
-          <div class="step">
+          <div class="step process-card">
             <div class="step-number">2</div>
             <h3>Elegí</h3>
-            <p>
-              Compará servicios y elegí la opción que
-              mejor se adapte a vos.
-            </p>
+            <p>Compará servicios y elegí la opción que mejor se adapte a vos.</p>
           </div>
 
-          <div class="step">
+          <div class="step process-card">
             <div class="step-number">3</div>
             <h3>Contactá</h3>
-            <p>
-              Contactá al profesional y comenzá a trabajar
-              en tu proyecto.
-            </p>
+            <p>Contactá al profesional y comenzá a trabajar en tu proyecto.</p>
           </div>
-
         </div>
       </div>
     </section>
 
     <section id="contacto" class="cta">
       <div class="container">
-
         <h2>¿Tenés un servicio para ofrecer?</h2>
+        <p>Mostrá lo que sabés hacer y encontrá nuevos clientes.</p>
 
-        <p>
-          Mostrá lo que sabés hacer y encontrá nuevos clientes.
-        </p>
+        <form class="contact-box" id="contactForm">
+          <label for="name">Tu nombre</label>
+          <input id="name" name="name" required placeholder="Ej. Juan Pérez">
 
-        <a href="mailto:contacto@tuservicio.com" class="btn btn-primary">
-          Quiero ofrecer mi servicio
-        </a>
+          <label for="email">Tu email</label>
+          <input id="email" name="email" type="email" required placeholder="tu@email.com">
 
+          <label for="message">¿Qué servicio ofrecés?</label>
+          <textarea id="message" name="message" required
+            placeholder="Contanos brevemente qué hacés..."></textarea>
+
+          <button class="btn btn-primary" type="submit">Quiero ofrecer mi servicio</button>
+          <div class="success-message" id="successMessage">
+            ¡Listo! El formulario funciona como demostración. Más adelante podemos conectarlo a Supabase.
+          </div>
+        </form>
       </div>
     </section>
-
   </main>
 
   <footer>
-    <p>
-      © 2026 <strong>Argumento de Servicio</strong>.
-      Todos los derechos reservados.
-    </p>
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Argumento de Servicio</div>
+        <p class="footer-copy">
+          Una plataforma para conectar personas que necesitan soluciones
+          con profesionales que saben cómo ayudarlas.
+        </p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Explorar</h4>
+        <a href="#servicios">Servicios</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#profesionales">Profesionales</a>
+        <a href="#como-funciona">Cómo funciona</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Participá</h4>
+        <a href="#contacto">Ofrecer un servicio</a>
+        <a href="#contacto">Contactarnos</a>
+        <a href="#contacto">Preguntas frecuentes</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 <strong>Argumento de Servicio</strong>. Todos los derechos reservados.
+    </div>
   </footer>
 
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDescription"></p>
+      <div class="modal-price" id="modalPrice"></div>
+      <br>
+      <a href="#contacto" class="btn btn-primary" id="modalContact">Consultar servicio</a>
+    </div>
+  </div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
+    const cards = [...document.querySelectorAll(".service-card")];
+    const categories = [...document.querySelectorAll(".category")];
+    const resultCount = document.getElementById("resultCount");
+    const clearFilter = document.getElementById("clearFilter");
+    const emptyState = document.getElementById("emptyState");
+
+    let activeCategory = "";
+
+    function normalize(text) {
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function filterServices() {
+      const query = normalize(searchInput.value.trim());
+      let visible = 0;
+
+      cards.forEach(card => {
+        const matchesCategory = !activeCategory || card.dataset.category === activeCategory;
+        const matchesSearch = !query || normalize(card.dataset.search).includes(query);
+        const show = matchesCategory && matchesSearch;
+
+        card.classList.toggle("hidden", !show);
+        if (show) visible++;
+      });
+
+      resultCount.textContent = `${visible} servicio${visible === 1 ? "" : "s"} encontrado${visible === 1 ? "" : "s"}`;
+      emptyState.classList.toggle("show", visible === 0);
+      clearFilter.classList.toggle("show", Boolean(activeCategory || query));
+    }
+
+    searchBtn.addEventListener("click", () => {
+      filterServices();
+      document.getElementById("servicios").scrollIntoView({ behavior: "smooth" });
+    });
+
+    searchInput.addEventListener("input", filterServices);
+
+    searchInput.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        searchBtn.click();
+      }
+    });
+
+    categories.forEach(category => {
+      category.addEventListener("click", () => {
+        activeCategory = category.dataset.category;
+
+        categories.forEach(item => item.classList.remove("active"));
+        category.classList.add("active");
+
+        filterServices();
+        document.getElementById("servicios").scrollIntoView({ behavior: "smooth" });
+      });
+    });
+
+    clearFilter.addEventListener("click", () => {
+      activeCategory = "";
+      searchInput.value = "";
+      categories.forEach(item => item.classList.remove("active"));
+      filterServices();
+    });
+
+    const modalBackdrop = document.getElementById("modalBackdrop");
+    const modalClose = document.getElementById("modalClose");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalDescription = document.getElementById("modalDescription");
+    const modalPrice = document.getElementById("modalPrice");
+    const modalContact = document.getElementById("modalContact");
+
+    document.querySelectorAll(".details-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        modalTitle.textContent = button.dataset.title;
+        modalDescription.textContent = button.dataset.description;
+        modalPrice.textContent = button.dataset.price;
+        modalContact.href = "#contacto";
+        modalBackdrop.classList.add("show");
+      });
+    });
+
+    function closeModal() {
+      modalBackdrop.classList.remove("show");
+    }
+
+    modalClose.addEventListener("click", closeModal);
+    modalBackdrop.addEventListener("click", event => {
+      if (event.target === modalBackdrop) closeModal();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") closeModal();
+    });
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      document.getElementById("successMessage").classList.add("show");
+      event.target.reset();
+    });
+
+    const menuBtn = document.getElementById("menuBtn");
+    const mainNav = document.getElementById("mainNav");
+
+    menuBtn.addEventListener("click", () => {
+      document.querySelector("header").classList.toggle("mobile-menu-open");
+    });
+
+    mainNav.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.querySelector("header").classList.remove("mobile-menu-open");
+      });
+    });
+  </script>
 </body>
 </html>
